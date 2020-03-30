@@ -1,0 +1,31 @@
+cicd-resource/
+log/
+.reviewboardrc
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+/target/
+.classpath
+.project
+.settings/
+.DS_Store
+/bin/
+*.iml
+*.sublime-*
+/build/
+logs/
+output/
+logs/
+**/target/
+.idea
+**/log.txt
+*.ipr
+*.iws
+*.log
+
