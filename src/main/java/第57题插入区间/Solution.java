@@ -1,5 +1,8 @@
 package 第57题插入区间;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * 应用模块名称<p>
  * 代码描述<p>
@@ -29,6 +32,35 @@ package 第57题插入区间;
 
 public class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        if ()
+        if (intervals == null || newInterval == null || newInterval.length == 0) {
+            return intervals;
+        }
+        if (newInterval.length == 0) {
+            return new int[][]{newInterval};
+        }
+
+        List<int[]> result = new LinkedList<>();
+        int index = 0;
+        int n = intervals.length;
+
+        while (index < n && intervals[index][1] < newInterval[0]) {
+            result.add(intervals[index]);
+            index++;
+        }
+
+        int[] temp = new int[]{newInterval[0], newInterval[1]};
+
+        while (index < n && temp[1] >= intervals[index][0]) {
+            temp[0] = Math.min(intervals[index][0], temp[0]);
+            temp[1] = Math.max(intervals[index][1], temp[1]);
+            index++;
+        }
+        result.add(temp);
+
+        while (index < n) {
+            result.add(intervals[index]);
+            index++;
+        }
+        return result.toArray(new int[result.size()][2]);
     }
 }
