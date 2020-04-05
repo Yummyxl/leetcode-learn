@@ -1,5 +1,7 @@
 package 第84题柱状图中最大的矩形;
 
+import java.util.Stack;
+
 /**
  * 应用模块名称<p>
  * 代码描述<p>
@@ -37,7 +39,7 @@ package 第84题柱状图中最大的矩形;
  */
 
 public class Solution {
-    public int largestRectangleArea(int[] heights) {
+    public int largestRectangleArea1(int[] heights) {
         if (heights == null || heights.length == 0) {
             return 0;
         }
@@ -69,6 +71,32 @@ public class Solution {
 
         for (int i=0; i<heights.length; i++) {
             max = Math.max((rightI[i] - leftI[i] - 1) * heights[i], max);
+        }
+        return max;
+    }
+
+    public int largestRectangleArea(int[] heights) {
+
+        if (heights == null || heights.length == 0) {
+            return 0;
+        }
+        if (heights.length == 1) {
+            return heights[0];
+        }
+
+        Stack<Integer> stack = new Stack<>();
+        stack.push(-1);
+        int max = 0;
+
+        for (int i=0; i<heights.length; i++) {
+            while (stack.peek() != -1 && heights[stack.peek()] >= heights[i]) {
+                max = Math.max(max, heights[stack.pop()] * (i - stack.peek() - 1));
+            }
+            stack.push(i);
+        }
+
+        while (stack.peek() != -1) {
+            max = Math.max(max, heights[stack.pop()] * (heights.length - stack.peek() - 1));
         }
         return max;
     }
